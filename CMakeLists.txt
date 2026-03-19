@@ -34,4 +34,6 @@ add_executable(CZap main.cpp
         ASTNodes/FunctionCall.h
         Lexer.cpp
         Lexer.h
-        Tokens/Token.h)
+        Tokens/Token.cpp
+        Tokens/Token.h
+)

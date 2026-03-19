@@ -5,6 +5,7 @@
 #ifndef CZAP_TOKEN_H
 #define CZAP_TOKEN_H
 #include <string>
+#include <ostream>
 
 
 enum class TokenKind {
@@ -27,5 +28,7 @@ struct Token {
         : kind(kind), value(std::move(value)) {}
 };
 
+std::ostream& operator<<(std::ostream& os, const Token& token);
+std::ostream& operator<<(std::ostream& os, const TokenKind& tokenKind);
 
 #endif //CZAP_TOKEN_H
