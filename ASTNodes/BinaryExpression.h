@@ -1,6 +1,3 @@
-//
-// Created by ogkbe on 3/18/2026.
-//
 
 #ifndef CZAP_BINARYEXPRESSION_H
 #define CZAP_BINARYEXPRESSION_H

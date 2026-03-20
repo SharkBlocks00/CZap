@@ -1,7 +1,3 @@
-//
-// Created by ogkbe on 3/18/2026.
-//
-
 #ifndef CZAP_TOKEN_H
 #define CZAP_TOKEN_H
 #include <string>

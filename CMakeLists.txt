@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.20)
 project(CZap)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(CZap main.cpp
         ASTNodes/ASTNode.cpp
@@ -36,4 +37,8 @@ add_executable(CZap main.cpp
         Lexer.h
         Tokens/Token.cpp
         Tokens/Token.h
+        Environment/Environment.cpp
+        Environment/Environment.h
+        Helpers/Value.cpp
+        Helpers/Value.h
 )

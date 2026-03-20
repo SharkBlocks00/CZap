@@ -1,7 +1,3 @@
-//
-// Created by ogkbe on 3/19/2026.
-//
-
 #include "Token.h"
 
 std::ostream& operator<<(std::ostream& os, const TokenKind& kind) {

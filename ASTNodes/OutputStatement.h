@@ -1,6 +1,3 @@
-//
-// Created by ogkbe on 3/18/2026.
-//
 
 #ifndef CZAP_OUTPUTSTATEMENT_H
 #define CZAP_OUTPUTSTATEMENT_H

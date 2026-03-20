@@ -1,6 +1,3 @@
-//
-// Created by ogkbe on 3/18/2026.
-//
 
 #ifndef CZAP_VARDECLARATION_H
 #define CZAP_VARDECLARATION_H

@@ -1,6 +1,3 @@
-//
-// Created by ogkbe on 3/18/2026.
-//
 
 #ifndef CZAP_BOOLEANEXPRESSION_H
 #define CZAP_BOOLEANEXPRESSION_H
