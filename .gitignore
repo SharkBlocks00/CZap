@@ -1,5 +1,5 @@
 build/
-gmake-build-debug/
+cmake-build-debug/
 
 CMakeFiles/
 CMakeCache.txt
