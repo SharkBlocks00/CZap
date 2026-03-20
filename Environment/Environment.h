@@ -1,7 +1,7 @@
 #ifndef CZAP_ENVIRONMENT_H
 #define CZAP_ENVIRONMENT_H
-#include <optional>
 #include <memory>
+#include <unordered_map>
 
 #include "../Helpers/Value.h"
 
@@ -19,6 +19,7 @@ public:
 private:
 
     std::shared_ptr<Environment> parent;
+    std::unordered_map<std::string, std::tuple<Value, bool>> variables; // name -> (value, isMutable)
 
 };
 
