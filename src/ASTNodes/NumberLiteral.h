@@ -1,12 +1,11 @@
 
 #ifndef CZAP_NUMBERLITERAL_H
 #define CZAP_NUMBERLITERAL_H
-#include <memory>
 
 #include "Expression.h"
 
 
-class NumberLiteral : Expression {
+class NumberLiteral : public Expression {
 public:
      explicit NumberLiteral(int value);
 
