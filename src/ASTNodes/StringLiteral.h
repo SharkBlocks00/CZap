@@ -6,7 +6,7 @@
 #include "Expression.h"
 
 
-class StringLiteral : Expression {
+class StringLiteral : public Expression {
 public:
     explicit StringLiteral(const std::string& value);
 

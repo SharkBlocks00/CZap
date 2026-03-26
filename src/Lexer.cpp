@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 
 Lexer::Lexer()
     : i(0), line_count(-1), keywords {
@@ -127,7 +128,8 @@ std::vector<Token> Lexer::lexate(const std::string& source) {
                 }
             }
 
-            tokens.push_back({TokenKind::IDENTIFIER, std::string() + c});
+            tokens.push_back({TokenKind::SYMBOL, std::string() + c});
+
             i++;
             continue;
         }

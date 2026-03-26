@@ -2,7 +2,7 @@
 #ifndef CZAP_BOOLEANEXPRESSION_H
 #define CZAP_BOOLEANEXPRESSION_H
 #include <memory>
-#include <optional>
+#include <string>
 
 #include "Expression.h"
 

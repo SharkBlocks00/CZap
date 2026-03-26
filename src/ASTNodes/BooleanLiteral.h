@@ -6,7 +6,7 @@
 #include "Expression.h"
 
 
-class BooleanLiteral : Expression {
+class BooleanLiteral : public Expression {
 public:
     explicit BooleanLiteral(bool value);
 

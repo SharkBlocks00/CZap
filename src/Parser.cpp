@@ -1,5 +1,7 @@
 #include "Parser.h"
 
+#include "ASTNodes/ExpressionStatement.h"
+#include "ASTNodes/StringLiteral.h"
 #include "ASTNodes/VarDeclaration.h"
 #include "ASTNodes/VarReassignment.h"
 #include "ASTNodes/OutputStatement.h"
@@ -13,6 +15,9 @@
 #include "ASTNodes/BreakStatement.h"
 #include "ASTNodes/BinaryExpression.h"
 #include "ASTNodes/NumberLiteral.h"
+#include "ASTNodes/BooleanLiteral.h"
+#include "ASTNodes/Identifier.h"
+
 
 #include <stdexcept>
 #include <iostream>
@@ -39,9 +44,9 @@ std::tuple<ASTStatement, size_t> Parser::parse_statement() {
             pos = new_pos;
         }
         else if (token.value == "request") {
-            auto [stmt, new_pos] = parse_request();
-            node = std::move(stmt);
+            auto [expression, new_pos] = parse_request();
             pos = new_pos;
+            node = std::make_unique<ExpressionStatement>(std::move(expression));
         }
         else if (token.value == "while") {
             auto [stmt, new_pos] = parse_while();
@@ -169,8 +174,48 @@ std::tuple<std::unique_ptr<Expression>, size_t> Parser::parse_primary() {
 
         return std::make_tuple(std::move(node), pos);
     }
+    if (token.kind == TokenKind::BOOLEAN) {
+        auto value = token.value == "true";
+        pos++;
 
-    throw std::runtime_error("Unexpected token in primary expression: " + token.value);
+        std::unique_ptr<Expression> node = std::make_unique<BooleanLiteral>(value);
+
+        return std::make_tuple(std::move(node), pos);
+    }
+    if (token.kind == TokenKind::STRING) {
+        auto value = token.value;
+        pos++;
+
+        std::unique_ptr<Expression> node = std::make_unique<StringLiteral>(std::move(value));
+
+        return std::make_tuple(std::move(node), pos);
+    }
+    if (token.kind == TokenKind::IDENTIFIER) {
+        auto value = token.value;
+        pos++;
+
+        std::unique_ptr<Expression> node = std::make_unique<Identifier>(std::move(value));
+
+        return std::make_tuple(std::move(node), pos);
+    }
+    if (token.kind == TokenKind::KEYWORD && token.value == "request") {
+        return parse_request();
+    }
+    if (token.kind == TokenKind::SYMBOL && token.value == "(") {
+        pos++;
+        auto [expression, new_pos] = parse_expression();
+        
+        pos = new_pos;
+
+        if (tokens[pos].kind != TokenKind::SYMBOL || tokens[pos].value != ")") {
+            throw std::runtime_error("Expected ')' after expression, got: " + tokens[pos].value);
+        }
+
+        return std::make_tuple(std::move(expression), pos + 1);
+    }
+
+    std::cout << token.kind << std::endl;
+    throw std::runtime_error("Unexpected token in primary expression: " + token.value );
 }
 
 std::tuple<ASTStatement, size_t> Parser::parse_let() {
@@ -272,6 +317,8 @@ std::tuple<ASTStatement, size_t> Parser::parse_output() {
     token = tokens[pos];
 
     if (token.kind != TokenKind::SYMBOL || token.value != "(") {
+        std::cout << token.value << std::endl;
+        std::cout << token.kind << std::endl;
         throw std::runtime_error("Expected '(' after 'output', got: " + token.value);
     }
 
@@ -296,7 +343,7 @@ std::tuple<ASTStatement, size_t> Parser::parse_output() {
     return std::make_tuple(std::make_unique<OutputStatement>(std::move(value)), pos);
 }
 
-std::tuple<ASTStatement, size_t> Parser::parse_request() {
+std::tuple<std::unique_ptr<Expression>, size_t> Parser::parse_request() {
     auto token = tokens[pos];
     if (token.kind != TokenKind::KEYWORD || token.value != "request") {
         throw std::runtime_error("Expected 'request' keyword, got: " + token.value);

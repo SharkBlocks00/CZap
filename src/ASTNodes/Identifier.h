@@ -1,16 +1,16 @@
-
 #ifndef CZAP_IDENTIFIER_H
 #define CZAP_IDENTIFIER_H
 #include <memory>
+#include <string>
 
 #include "Expression.h"
 
 
-class Identifier : Expression {
+class Identifier : public Expression {
 public:
-    explicit Identifier(std::unique_ptr<Expression> value);
+    explicit Identifier(const std::string& value);
 
-    std::unique_ptr<Expression> value;
+    const std::string& value;
 };
 
 

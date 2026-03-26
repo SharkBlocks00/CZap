@@ -32,7 +32,7 @@ private:
     std::tuple<ASTStatement, size_t> parse_const();
     std::tuple<ASTStatement, size_t> parse_res();
     std::tuple<ASTStatement, size_t> parse_output();
-    std::tuple<ASTStatement, size_t> parse_request();
+    std::tuple<std::unique_ptr<Expression>, size_t> parse_request();
     std::tuple<ASTStatement, size_t> parse_while();
     std::tuple<ASTStatement, size_t> parse_assert();
     std::tuple<ASTStatement, size_t> parse_foreach();

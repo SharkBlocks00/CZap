@@ -1,13 +1,16 @@
-#include <iostream>
-#include <ostream>
-
 #include "Lexer.h"
+#include "Parser.h"
+#include "Interpreter.h"
 
 int main() {
     Lexer lexer;
-    auto tokens = lexer.lexate("let bob = x;");
+    auto tokens = lexer.lexate("output(\"Hi\");");
 
-    for (const auto& token : tokens) {
-        std::cout << token << std::endl;
-    }
+    Parser parser(tokens);
+
+    Interpreter interpreter(lexer, parser);
+    interpreter.interpret();
+
+    return 0;
+
 }
