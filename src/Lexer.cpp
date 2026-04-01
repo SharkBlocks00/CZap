@@ -14,6 +14,7 @@ Lexer::Lexer()
 std::vector<Token> Lexer::lexate(const std::string& source) {
     tokens.clear();
     i = 0;
+    line_count = 1;
 
     while (i < source.length()) {
         const char c = source[i];
@@ -94,34 +95,34 @@ std::vector<Token> Lexer::lexate(const std::string& source) {
                 continue;
             }
             if (std::string("&|").find(c) != std::string::npos) {
-                if (std::string("&|").find(source[i + 1]) != std::string::npos) {
+                if (i + 1 < source.length() && source[i + 1] == c) {
                     tokens.push_back({TokenKind::SYMBOL,std::string() + c + c});
                     i += 2;
                     continue;
                 }
             }
             else if (std::string("+-*/%").find(c) != std::string::npos) {
-                if (c == '+' && source[i + 1] == '+' || source[i + 1] == '=') {
+                if (c == '+' && i + 1 < source.length() && (source[i + 1] == '+' || source[i + 1] == '=')) {
                     tokens.push_back({TokenKind::SYMBOL, std::string() + c + source[i + 1]});
                     i += 2;
                     continue;
                 }
-                if (c == '-' && source[i + 1] == '=') {
+                if (c == '-' && i + 1 < source.length() && source[i + 1] == '=') {
                     tokens.push_back({TokenKind::SYMBOL, std::string() + c + source[i + 1]});
                     i += 2;
                     continue;
                 }
-                if (c == '%' && source[i + 1] == '=') {
+                if (c == '%' && i + 1 < source.length() && source[i + 1] == '=') {
                     tokens.push_back({TokenKind::SYMBOL, std::string() + c + source[i + 1]});
                     i += 2;
                     continue;
                 }
-                if (c == '*' && source[i + 1] == '=') {
+                if (c == '*' && i + 1 < source.length() && source[i + 1] == '=') {
                     tokens.push_back({TokenKind::SYMBOL, std::string() + c + source[i + 1]});
                     i += 2;
                     continue;
                 }
-                if (c == '/' && source[i + 1] == '=') {
+                if (c == '/' && i + 1 < source.length() && source[i + 1] == '=') {
                     tokens.push_back({TokenKind::SYMBOL, std::string() + c + source[i + 1]});
                     i += 2;
                     continue;

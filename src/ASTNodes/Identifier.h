@@ -8,9 +8,9 @@
 
 class Identifier : public Expression {
 public:
-    explicit Identifier(const std::string& value);
+    explicit Identifier(std::string value);
 
-    const std::string& value;
+    std::string value;
 };
 
 
